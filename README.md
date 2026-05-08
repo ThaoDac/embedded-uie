@@ -11,7 +11,7 @@ The project is split into two phases:
 ## 1. Repository layout
 
 ```
-IMPLEMENTATION/│
+embedded-uie/│
 │ ── Phase 1: 11 UIE models ───────────────────────────────────
 ├── CLAHE-main/             # 1. CLAHE (non-DL)
 ├── DCP-main/               # 2. Dark Channel Prior (non-DL)
@@ -208,7 +208,7 @@ following the structure below.
 
 | Dataset | Description | #Classes | Original link |
 |---------|-------------|----------|---------------|
-| **URPC2020** | Underwater Robot Picking Contest 2020. Main dataset used in the paper. 5,543 train / 1,200 val / 800 test. | 4 (holothurian, echinus, scallop, starfish) | <https://www.kaggle.com/datasets/ddyy0322/urpc2020> · Roboflow mirrors: <https://universe.roboflow.com/search?q=urpc2020> |
+| **URPC2020** | Underwater Robot Picking Contest 2020. Main dataset used in the paper. 5,543 train / 1,200 val / 800 test. | 4 (holothurian, echinus, scallop, starfish) | Roboflow mirrors: <https://universe.roboflow.com/search?q=urpc2020> |
 | **RUOD** | Real-world Underwater Object Detection (v2 on Roboflow). 13,161 images with corrected annotations. | 10 (corals, cuttlefish, diver, echinus, fish, holothurian, jellyfish, scallop, starfish, turtle) | <https://universe.roboflow.com/marcofarrugia/ruod-tcoz3/dataset/2> · paper / dataset: <https://github.com/dlut-dimt/RUOD> |
 | **DUO** | Detecting Underwater Objects, de-duplicated using a perceptual hash. 6,671 train / 1,111 val / 1,111 test. | 4 (holothurian, echinus, scallop, starfish) | <https://github.com/chongweiliu/DUO> |
 
