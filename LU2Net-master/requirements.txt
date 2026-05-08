@@ -1,0 +1,9 @@
+numpy
+opencv-python
+torch
+torchvision
+tqdm
+scipy
+scikit-image
+psutil
+pyiqa

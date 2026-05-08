@@ -1,0 +1,78 @@
+# WaterFormer Training Configuration
+# Unified config format for UIE (Underwater Image Enhancement) training
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Dataset Configuration
+# ----------------------------------------------------------------------------
+dataset:
+  # Training data paths (input = underwater images, target = reference/GT images)
+  train_input: "/home/ndpthao/eject/IMPLEMENTATION/PGHS-main/Dataset/train/input"
+  train_gt: "/home/ndpthao/eject/IMPLEMENTATION/PGHS-main/Dataset/train/target"
+
+  # Test/Validation data paths (using LSUI test set)
+  test_input: "/home/ndpthao/eject/IMPLEMENTATION/PGHS-main/Dataset/testset/test-LSUI/input"
+  test_gt: "/home/ndpthao/eject/IMPLEMENTATION/PGHS-main/Dataset/testset/test-LSUI/target"
+
+  # Image size for training (256x256 pixels)
+  # Images will be resized to this size during training
+  # Note: WaterFormer uses progressive training with increasing patch sizes
+  img_size: 256
+
+# ----------------------------------------------------------------------------
+# Training Hyperparameters (aligned with LU2Net configuration)
+# ----------------------------------------------------------------------------
+training:
+  # Number of training epochs
+  # Note: WaterFormer uses iteration-based training, epochs will be converted to iterations
+  epochs: 200
+
+  # Batch size per GPU (from LU2Net: batch_size=1)
+  # Note: Using small batch_size=1 with gradient accumulation to handle GPU memory
+  # Effective batch size = batch_size * gradient_accumulation_steps = 1 * 16 = 16
+  batch_size: 1
+
+  # Gradient accumulation steps (simulate larger batch size)
+  # Accumulate gradients over 16 mini-batches before updating weights
+  # This maintains training quality while reducing memory usage
+  gradient_accumulation_steps: 16
+
+  # Learning rate (from LU2Net: lr=0.0005)
+  # Note: WaterFormer original uses lr=0.0003, adjusted to match LU2Net
+  lr: 0.0005
+
+  # DataLoader workers (from LU2Net: num_workers=4)
+  num_workers: 8
+
+  # Random seed for reproducibility
+  seed: 42
+
+# ----------------------------------------------------------------------------
+# WaterFormer Specific Parameters
+# ----------------------------------------------------------------------------
+# These are NOT overridden by config, kept from original opt file:
+#   - Progressive training settings (mini_batch_sizes, gt_sizes, iters)
+#   - Optimizer settings (AdamW, weight_decay, betas)
+#   - Scheduler settings (CosineAnnealingRestartCyclicLR)
+#   - Loss settings (L1Loss, SSIMLoss weights)
+#   - Network architecture (dim, num_blocks, heads, window_size, shift_size)
+
+# ----------------------------------------------------------------------------
+# Notes:
+# ----------------------------------------------------------------------------
+# 1. This config file provides the COMMON hyperparameters (epochs, lr, batch_size, etc.)
+#    that are shared across different UIE models (LU2Net, TACL, FUnIE-GAN, WaterFormer, etc.)
+#
+# 2. WaterFormer-specific parameters (network architecture, progressive training schedule,
+#    loss weights) are kept in the original opt file (configs/uie_waterformer.yml)
+#
+# 3. The config system does NOT change WaterFormer's original training flow/logic
+#    It only provides a convenient way to set common hyperparameters
+#
+# 4. Usage:
+#    python waterformer/train.py --opt configs/uie_waterformer.yml --config config_train.yaml
+#
+# 5. The unified config parameters will override the corresponding parameters in the opt file
+#
+# 6. Progressive training will be maintained but batch sizes will be scaled to match
+#    the specified batch_size in this config

@@ -1,0 +1,198 @@
+# =============================================================================
+# .gitignore — IMPLEMENTATION (Embedded UIE 11 + YOLOv11)
+# Mục tiêu: KHÔNG commit môi trường ảo, dataset nặng, weight, cache, output
+# =============================================================================
+
+# -------- Python ------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.coverage
+.coverage.*
+htmlcov/
+.ipynb_checkpoints/
+*.pyo
+
+# -------- Virtual environments ---------------------------------------------
+venv/
+.venv/
+env/
+.env/
+ENV/
+**/venv/
+**/.venv/
+**/env/
+.python-version
+pip-log.txt
+pip-delete-this-directory.txt
+
+# -------- IDE / OS ---------------------------------------------------------
+.idea/
+.vscode/
+*.swp
+*.swo
+*.iml
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# =============================================================================
+# Datasets — TẤT CẢ dataset đều quá nặng để commit
+# Tải lại theo link trong README.md (mục 5)
+# =============================================================================
+Dataset/
+**/Dataset/
+**/Datasets/
+**/datasets/
+UIR-PolyKernel-main/data/
+
+# Test/train splits sinh ra trong khi chạy YOLO
+**/test_enh_*/
+**/train_enh*/
+**/valid_enh*/
+**/train_mix/
+**/valid_mix/
+**/test_mix/
+**/urpc_test*/
+**/urpc_train*/
+**/runs/
+**/labels.cache
+*.cache
+
+# =============================================================================
+# Pretrained weights / checkpoints — nặng, tải về theo README
+# =============================================================================
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.pte
+*.h5
+*.tflite
+*.pb
+*.bin
+*.safetensors
+*.weights
+
+# Cho phép YOLOv11 base pretrained nhỏ nếu muốn track (bỏ comment nếu cần)
+# !YOLOv11-main/yolo11n.pt
+
+# Folder checkpoint của từng model
+**/checkpoints/
+**/checkpoint/
+**/pretrained/
+**/weights/
+**/saved_models/
+**/tb_logs/
+**/tb_logger/
+**/work_dirs/
+**/logs/
+
+# =============================================================================
+# Outputs / kết quả thử nghiệm
+# =============================================================================
+UIE_YOLO_Results/
+**/UIE_YOLO_Results/
+**/UIE_YOLO_AllModels_*/
+**/detection_results*/
+**/detection_results_*/
+results/
+output/
+outputs/
+**/output/
+**/outputs/
+**/results/
+**/results_*/
+**/test_results/
+
+# Ảnh / video sinh ra khi enhance hoặc visualize
+*.tmp
+*.log
+*_log.txt
+
+# =============================================================================
+# Sub-projects NOT part of the paper's 11 main UIE models — ignore entirely
+# (Semi-UIR, TACL, UVEB are kept locally as references but excluded from git)
+# =============================================================================
+Semi-UIR-master/
+TACL-main/
+UVEB-main/
+**/Semi-UIR-master/
+**/TACL-main/
+**/UVEB-main/
+
+# =============================================================================
+# Heavy / unused sub-folders inside the 11 main UIE models
+# (legacy "origin" forks, web demo templates, paper figures, etc.)
+# =============================================================================
+
+# Origin / fork repos (lots of legacy code, scripts, .sh not used here)
+FUnIE-GAN-main/FUnIE-GAN-origin/
+FUnIE-GAN-main/TFKeras/
+FUnIE-GAN-main/=2.16.0
+LU2Net-master/LU2Net/
+
+# Sample / training-output / qualitative-result folders inside DL models
+**/samples/
+**/training_output/
+**/test_results/
+**/qualitative_results/
+
+# Web-demo Flask templates / static (we only use the *_console.py scripts)
+UIR-PolyKernel-main/templates/
+UIR-PolyKernel-main/static/
+PGHS-main/templates/
+PGHS-main/static/
+DCP-main/templates/
+DCP-main/static/
+UDCP-main/templates/
+UDCP-main/static/
+ULAP-main/templates/
+ULAP-main/static/
+CLAHE-main/templates/
+CLAHE-main/static/
+
+# Paper figures / TensorBoard / experiment dirs inside DL models
+WaterFormer-master/figs/
+WaterFormer-master/tb_logger/
+WaterFormer-master/work_dirs/
+HCLR-Net-main/output/
+HCLR-Net-main/r.txt
+
+# =============================================================================
+# Misc large / generated files
+# =============================================================================
+*.zip
+*.tar
+*.tar.gz
+*.7z
+*.rar
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.npy
+*.npz
+*.pkl
+*.pickle
+
+# Allow specific small files we DO want to keep
+!requirements.txt
+!**/requirements.txt
+!**/data.yaml
+!**/config.yml
+!**/config.yaml
+!**/*.json
+!**/README.md
+!**/README*.md
